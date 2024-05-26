@@ -4,11 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.mapper.FacilityMapper">
-    <select id="selectFacilitiesWithData" resultType="com.example.dto.FacilityWithDataDto">
-        SELECT f.id AS facilityId, f.facility_name, f.facility_status, fd.id AS dataId, fd.facility_value, fd.create_date
-        FROM m_facility f
-        JOIN t_facility_data fd ON f.id = fd.facility_id
-        WHERE fd.create_date BETWEEN #{startDate} AND #{endDate}
-          AND f.facility_name LIKE CONCAT('%', #{facilityName}, '%')
-    </select>
+  <select id="findByFacilityNameAndDateRange" resultType="com.example.dto.FacilityWithDataDto">
+    SELECT * FROM m_facility f
+    LEFT JOIN t_facility_data d ON f.id = d.facility_id
+    WHERE f.facility_name = #{facilityName}
+    AND d.create_date BETWEEN #{startDate} AND #{endDate}
+  </select>
 </mapper>
