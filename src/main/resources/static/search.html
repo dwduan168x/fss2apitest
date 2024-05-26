@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facility Search</title>
+    <script>
+        async function searchFacilities() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const facilityName = document.getElementById('facilityName').value;
+            const response = await fetch(`/api/facilities/search?startDate=${startDate}&endDate=${endDate}&facilityName=${facilityName}`);
+            const data = await response.json();
+            document.getElementById('results').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Search Facilities with Data</h1>
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="startDate" name="startDate"><br><br>
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="endDate" name="endDate"><br><br>
+    <label for="facilityName">Facility Name:</label>
+    <input type="text" id="facilityName" name="facilityName"><br><br>
+    <button onclick="searchFacilities()">Search</button>
+    <pre id="results"></pre>
+</body>
+</html>
